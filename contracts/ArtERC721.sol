@@ -14,6 +14,8 @@ contract ArtERC721 is ERC721Token, Ownable {
     bool forSale;
   }
 
+  event newArtwork(string title, address originalCreator, uint256 price, bool forSale);
+
   Art[] public artworks;
 
   mapping(uint => address) public artworkToOwner;
@@ -50,6 +52,7 @@ contract ArtERC721 is ERC721Token, Ownable {
   	bool _forSale
   ) 
     public
+    payable
     returns (uint256)
  {
 
@@ -67,6 +70,7 @@ contract ArtERC721 is ERC721Token, Ownable {
   	artworkToOwner[id - 1] = originalCreator;
   	ownerArtworkCount[msg.sender]++;
   	_mint(msg.sender, id);
+  	newArtwork(_title, msg.sender, _price, _forSale);
   	return id - 1;
   }
 
@@ -113,13 +117,15 @@ contract ArtERC721 is ERC721Token, Ownable {
 
   	// increment/decrement owner count
   	ownerArtworkCount[_to]++;
-  	ownerArtworkCount[msg.sender]--;
+  	ownerArtworkCount[_from]--;
 
     Transfer(_from, _to, _artworkId);
   }
 
   // function purchase(uint256 _artworkId) external payable {
-  // 	require
+  // 	var artwork = getArtwork(_artworkId);
+  // 	require(msg.value >= artwork.price);
+
   // }
 
 

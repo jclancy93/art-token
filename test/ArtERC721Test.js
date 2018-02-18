@@ -29,6 +29,7 @@ contract('ArtERC721', accounts => {
 
 		it('can mint new artwork', async function() {
 		  assert(artworks.ownerOf(1), owner)
+		  console.log(tx.logs)
 		  assert.equal(tx.logs[0].event, 'Transfer')
 		})
 
