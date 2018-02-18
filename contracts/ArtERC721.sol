@@ -70,7 +70,7 @@ contract ArtERC721 is ERC721Token, Ownable {
   	artworkToOwner[id - 1] = originalCreator;
   	ownerArtworkCount[msg.sender]++;
   	_mint(msg.sender, id);
-  	newArtwork(_title, msg.sender, _price, _forSale);
+  	newArtwork(_url, msg.sender, _price, _forSale);
   	return id - 1;
   }
 
